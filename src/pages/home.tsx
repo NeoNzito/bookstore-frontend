@@ -23,7 +23,9 @@ export default function Home() {
     }
     return (
         <div>
-            <BookItem />
+            <div className="grid grid-cols-3">
+               
+            </div>
         </div>
     )
 }
