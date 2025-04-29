@@ -23,8 +23,12 @@ export default function Home() {
     }
     return (
         <div>
-            <div className="grid grid-cols-3">
-               
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+               <BookItem />
+               <BookItem />
+               <BookItem />
+               <BookItem />
+               <BookItem />
             </div>
         </div>
     )
