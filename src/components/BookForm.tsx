@@ -7,7 +7,7 @@ type Author = { name: string };
 type BookFormData = {
   title: string;
   author: Author[];
-  isbn: number;
+  isbn: string;
   edition: string;
   year: number;
   publisher: string;
@@ -25,7 +25,7 @@ const BookForm: React.FC<BookFormProps> = ({ onSubmit }) => {
     defaultValues: {
       title: "",
       author: [{ name: "" }],
-      isbn: 0,
+      isbn: "",
       edition: "",
       year: 0,
       publisher: "",
@@ -41,7 +41,8 @@ const BookForm: React.FC<BookFormProps> = ({ onSubmit }) => {
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded-md space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl mx-auto p-6 w-full bg-white shadow-md rounded-md space-y-4">
+      <h1 className="font-bold text-xl">Cadastro de Livros</h1>
       <div>
         <label className="block font-semibold">Título</label>
         <input
@@ -72,7 +73,7 @@ const BookForm: React.FC<BookFormProps> = ({ onSubmit }) => {
         ))}
         <button
           type="button"
-          className="text-blue-500 text-sm underline"
+          className="px-3 py-2 border rounded-md cursor-pointer font-bold"
           onClick={() => append({ name: "" })}
         >
           + Adicionar autor

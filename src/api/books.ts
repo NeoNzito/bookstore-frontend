@@ -9,6 +9,7 @@ export const createBook = async(bookData: CreateBookDTO): Promise<BookDTO> => {
 
 export const getAllBooks = async(): Promise<BookDTO[]> => {
     const res = await client.get("/books");
+    console.log(res.data);
     return res.data;
 }
 

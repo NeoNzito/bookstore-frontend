@@ -1,7 +1,7 @@
 export default class CreateBookDTO {
     title: string;
     author: Array<{ name: string; }>;
-    isbn: number;
+    isbn: string;
     edition: string;
     year: number;
     publisher: string;
