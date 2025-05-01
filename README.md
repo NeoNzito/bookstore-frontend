@@ -1,54 +1,106 @@
-# React + TypeScript + Vite
+# 📚 Book Store Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![React](https://img.shields.io/badge/React-18.x-blue?logo=react)
+![Vite](https://img.shields.io/badge/Vite-Frontend-lightblue?logo=vite)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-Currently, two official plugins are available:
+A simple university project developed with **React** and **Vite** that provides a frontend for a Book Store. Users can add new books, including an image, authors, edition, year, ISBN, and a link to where the book can be purchased.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 📖 Add new books to the catalog
+- 🖼 Upload an image for each book
+- ✍️ Include author, edition, year, and ISBN
+- 🔗 Add an external link to buy the book
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🚀 Tech Stack
+
+- [React](https://reactjs.org/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) *(if used)*
+
+## 📦 Getting Started
+
+### Prerequisites
+
+- Node.js >= 16.x
+- npm or Yarn
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/bookstore-frontend.git
+   cd bookstore-frontend
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+### Running the Application
+
+```bash
+npm run dev
+# or
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This will start the development server on [http://localhost:5173](http://localhost:5173).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Build for Production
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm run build
+# or
+yarn build
 ```
+
+The production-ready files will be in the `dist/` folder.
+
+---
+
+## 🎨 Usage
+
+1. On the home page, view the list of books.
+2. Click **Add Book** to open the form.
+3. Fill out the details and click **Save**.
+4. To edit, click **Edit** on a book card, modify fields, then **Save**.
+5. To delete, click **Delete** and confirm.
+
+---
+
+## 🗂️ Project Structure
+
+```plaintext
+src/
+├─ api/          # HTTP client and API calls
+├─ components/   # Reusable UI components
+├─ pages/        # Page-level components (BookList, BookForm)
+├─ types/        # TypeScript DTOs and interfaces
+├─ App.tsx       # Main application component
+├─ main.tsx      # Entry point
+├─ vite.config.ts
+public/
+└─ ...           # Static assets
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to open issues or submit pull requests.
+
+---
+
+## 📄 License
+
+This project is for educational purposes. Use as you see fit.
+
