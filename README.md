@@ -21,7 +21,7 @@ A simple university project developed with **React** and **Vite** that provides 
 - [React](https://reactjs.org/)
 - [Vite](https://vitejs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/) *(if used)*
+- [Tailwind CSS](https://tailwindcss.com/)
 
 ## 📦 Getting Started
 
