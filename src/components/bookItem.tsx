@@ -1,33 +1,49 @@
 import type React from "react"
 
 import { useState } from "react"
-import { FaShoppingCart, FaEdit } from "react-icons/fa"
+import { FaShoppingCart, FaEdit, FaTrash } from "react-icons/fa"
 import imagePlaceholder from "../../public/landscape-placeholder.svg"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { X, Plus } from "lucide-react"
-import CreateBookDTO from "../types/createBookDto"
-import BookDTO from "../types/bookDto"
-import { updateBook } from "../api/books"
+import { X, Plus, AlertTriangle } from "lucide-react"
+import type CreateBookDTO from "../types/createBookDto"
+import type BookDTO from "../types/bookDto"
+import { updateBook, deleteBook } from "../api/books"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 
+type BookItemProps = {
+  book: BookDTO;
+  callback: () => void;
+}
 
 const BookItem = ({
-  bookData: {
-    id,
-    title,
-    author = [],
-    edition,
-    image = imagePlaceholder,
-    isbn,
-    page_ammount,
-    publisher,
-    year,
-    purchase_link,
+  book: {
+      id,
+      title,
+      author = [],
+      edition,
+      image = imagePlaceholder,
+      isbn,
+      page_ammount,
+      publisher,
+      year,
+      purchase_link,
   },
-}: BookDTO) => {
+  callback,
+}: BookItemProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   const [editedBook, setEditedBook] = useState<CreateBookDTO>({
     title,
     author: [...author],
@@ -39,6 +55,8 @@ const BookItem = ({
     purchase_link,
     image,
   })
+
+  console.log(id);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -75,7 +93,14 @@ const BookItem = ({
 
   const handleSave = () => {
     updateBook(id, editedBook)
-    setIsModalOpen(false)
+    .then(callback);
+    setIsModalOpen(false);
+  }
+
+  const handleDelete = () => {
+    deleteBook(id)
+    .then(callback);
+    setIsDeleteDialogOpen(false)
   }
 
   return (
@@ -85,16 +110,22 @@ const BookItem = ({
           <img
             src={image || "/placeholder.svg"}
             alt={`Capa do livro ${title}`}
-            className="aspect-video w-full rounded-md object-cover"
+            className="aspect-auto w-full rounded-md object-cover"
           />
         </div>
         <div className="flex-1 w-full">
           <div className="flex justify-between items-start mb-2">
-            <h1 className="text-lg font-bold">Título: {title}</h1>
-            <Button variant="outline" size="sm" className="ml-2" onClick={() => setIsModalOpen(true)}>
-              <FaEdit className="mr-2 h-4 w-4" />
-              Editar
-            </Button>
+            <h1 className="text-lg font-bold">{title}</h1>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => setIsModalOpen(true)}>
+                <FaEdit className="mr-2 h-4 w-4" />
+                Editar
+              </Button>
+              <Button variant="destructive" size="sm" onClick={() => setIsDeleteDialogOpen(true)}>
+                <FaTrash className="mr-2 h-4 w-4" />
+                Excluir
+              </Button>
+            </div>
           </div>
           <div className="p-3 shadow-md rounded-md mb-2">
             <h2 className="font-semibold">Autores:</h2>
@@ -143,7 +174,9 @@ const BookItem = ({
                   <div key={index} className="flex items-center gap-2">
                     <Input
                       value={author.name}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => handleAuthorChange(index, e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+                        handleAuthorChange(index, e.target.value)
+                      }
                       placeholder="Nome do autor"
                     />
                     <Button
@@ -271,6 +304,29 @@ const BookItem = ({
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="flex items-center gap-2">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
+              Confirmar exclusão
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir o livro "{title}"? Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDelete}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              Excluir
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   )
 }

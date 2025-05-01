@@ -3,13 +3,12 @@ import CreateBookDTO from "../types/createBookDto";
 import client from "./client";
 
 export const createBook = async(bookData: CreateBookDTO): Promise<BookDTO> => {
-    const res = await client.post("/books", { bookData });
+    const res = await client.post("/books", bookData);
     return res.data;
 }
 
 export const getAllBooks = async(): Promise<BookDTO[]> => {
     const res = await client.get("/books");
-    console.log(res.data);
     return res.data;
 }
 
@@ -19,7 +18,8 @@ export const getOneBookById = async(bookId: string): Promise<BookDTO | undefined
 }
 
 export const updateBook = async(bookId: string, bookData: CreateBookDTO): Promise<BookDTO> => {
-    const res = await client.post(`/books/${bookId}/update`, { bookData });
+    console.log("BookId: ", bookId);
+    const res = await client.post(`/books/${bookId}/update`, bookData);
     return res.data;
 }
 
